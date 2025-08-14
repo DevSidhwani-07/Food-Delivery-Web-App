@@ -1,20 +1,40 @@
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
 
-const authMiddleware = async (req,res,next) => {
-    const {token} = req.headers;
-    if (!token) {
-        return res.json({success:false,message:"Not Authorized Login Again"});
-    }
+// const authMiddleware = async (req,res,next) => {
+//     const {token} = req.headers;
+//     if (!token) {
+//         return res.json({success:false,message:"Not Authorized Login Again"});
+//     }
+
+//     try {
+//         const token_decode = jwt.verify(token, process.env.JWT_SECRET);
+//         req.userId = token_decode.id;
+//         next();
+
+//     } catch (error) {
+//         console.log(error);
+//         res.json({success:false, message:"Error"});
+//     }
+// }
+
+// export default authMiddleware;
+
+
+
+
+import jwt from "jsonwebtoken";
+
+const authMiddleware = (req, res, next) => {
+    const token = req.headers.token;
+    if (!token) return res.json({ success: false, message: "Not authorized" });
 
     try {
-        const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = token_decode.id;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.body.userId = decoded.id;
         next();
-
     } catch (error) {
-        console.log(error);
-        res.json({success:false, message:"Error"});
+        return res.json({ success: false, message: "Invalid token" });
     }
-}
+};
 
 export default authMiddleware;
