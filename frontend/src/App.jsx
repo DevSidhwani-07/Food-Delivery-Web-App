@@ -6,24 +6,34 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Cart from './pages/Cart/Cart'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
+import VerifyPage from './pages/VerifyPage/VerifyPage'
+import MyOrders from './pages/MyOrders/MyOrders'
+
+
 
 
 const App = () => {
+   // State to show or hide login popup
   const [showLogin, setShowLogin] = useState(false);
   return (
     <>
-    {showLogin ? <LoginPopup setShowLogin={setShowLogin}/>: <></>}
+     {/* Show Login Popup if showLogin is true */}
+      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
       <div className='app'>
-       <Navbar setShowLogin = {setShowLogin} />
-       <Routes>
-        <Route path = '/' element = {<Home/>} />
-        <Route path = '/cart' element = {<Cart/>} />
-        <Route path = '/order' element = {<PlaceOrder/>} />
-       </Routes>
-     </div>
-     <Footer/> 
+        <Navbar setShowLogin={setShowLogin} />
+
+        {/* Define application routes */}
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/order' element={<PlaceOrder />} />
+          <Route path='/verify/*' element={<VerifyPage />} />
+          <Route path='/myorders/' element={<MyOrders />} />
+        </Routes>
+      </div>
+      <Footer />
     </>
-    
+
   )
 }
 

@@ -2,10 +2,13 @@ import React from 'react'
 import './AppDownload.css'
 import { assets } from '../../assets/assets'
 
+// Component to show app download section
 const AppDownload = () => {
   return (
     <div className='app-download' id='app-download'>
       <p>For Better Experience Download  <br />Tomato App</p>
+
+       {/* Download buttons for Play Store and App Store */}
       <div className="app-download-platforms">
         <img src={assets.play_store} alt="" />
         <img src={assets.app_store} alt="" />
