@@ -6,7 +6,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const placeOrder = async (req, res) => {
 
+<<<<<<< HEAD
    const frontend_url = process.env.FRONTEND_URL;
+=======
+   const frontend_url = "https://food-delivery-web-app-frontend-2ydb.onrender.com/cart";
+>>>>>>> fcd7dc84cbd1b0b9ed4debd44b8f610800090098
    try {
        // Create a new order in MongoDB
       const newOrder = new orderModel({
