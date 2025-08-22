@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const placeOrder = async (req, res) => {
 
-   const frontend_url = "http://localhost:5174";
+   const frontend_url = process.env.FRONTEND_URL;
    try {
        // Create a new order in MongoDB
       const newOrder = new orderModel({
@@ -63,17 +63,21 @@ const placeOrder = async (req, res) => {
 }
 
 const verifyOrder = async (req, res) => {
-   const { orderId, success } = req.body;
+   const { orderId, success } = req.query.orderId ? req.query : req.body;
    try {
       if (success == "true") {
          // If payment successful → mark order as paid
          await orderModel.findByIdAndUpdate(orderId, { payment: true });
-         res.json({ success: true, message: "Paid" });
+         // res.json({ success: true, message: "Paid" });
+         // return res.redirect(`${process.env.FRONTEND_URL}/myorders`);
+         return res.json({success:true, redirect:"/myorders"})
       }
       else {
          // Else delete the order
          await orderModel.findByIdAndDelete(orderId);
-         res.json({ success: false, message: "No Paid" })
+         // res.json({ success: false, message: "No Paid" })
+         //  return res.redirect(`${process.env.FRONTEND_URL}/cart`);
+         return res.json({success:false, redirect:"/cart"})
       }
    } catch (error) {
       console.log(error);

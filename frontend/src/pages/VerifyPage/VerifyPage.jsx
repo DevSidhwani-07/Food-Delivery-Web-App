@@ -16,10 +16,16 @@ const VerifyPage = () => {
   useEffect(() => {
      // Function to verify payment with backend
     const verifyPayment = async () => {
-      try {
-         // Send request to backend with payment status and orderId
-        const response = await axios.post(url + "/api/order/verify", { success, orderId }, { headers: { token } }
-        );
+      // try {
+      //    // Send request to backend with payment status and orderId
+      //   const response = await axios.get(url + "/api/order/verify", { success, orderId }, { headers: { token } }
+      //   );
+
+       try {
+        const response = await axios.get(url + "/api/order/verify", {
+          params: { success, orderId },
+          headers: { token }
+        });
 
          // If backend confirms payment, go to My Orders page
         if (response.data.success) {
@@ -36,7 +42,7 @@ const VerifyPage = () => {
     };
 
     verifyPayment();
-  }, []);
+  }, [success, orderId, url, token, navigate]);
 
   return (
     <div className='verify'>
