@@ -181,11 +181,9 @@ const placeOrder = async (req, res) => {
          payment_method_types: ["card"],
          line_items: line_items,
          mode: "payment",
-<<<<<<< HEAD
-         success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-=======
+
          success_url: `${frontend_url}/myorders?success=true&orderId=${newOrder._id}`,
->>>>>>> 56346e6 (Fixed success_url to redirect to myorders)
+
          cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
       });
 
@@ -252,7 +250,3 @@ const updateStatus = async (req, res) => {
 };
 
 export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };
-<<<<<<< HEAD
-
-=======
->>>>>>> 56346e6 (Fixed success_url to redirect to myorders)
